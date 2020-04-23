@@ -45,11 +45,21 @@ public:
     }
 
     void invite(){
+        String username;
+        cin >> username;
 
+        for(int i = 0; i < users.getNumberOfElements(); i++) {
+            if(users[i].getUsername() == username) {
+                loggedUser->sendInvitationTo(&users[i]);
+            }
+        }
     }
 
     void accept(){
+        String username;
+        cin >> username;
 
+        loggedUser->acceptInvitationFrom(username);
     }
     
     void login(){
@@ -73,15 +83,15 @@ public:
     }
 
     void logout(){
-
+        loggedUser = nullptr;
     }
 
     void listFriends(){
-
+        loggedUser->printFriendsList();
     }
 
     void viewProfile(){
-
+        loggedUser->printProfileInfo();
     }
 
     void checkDestination(){

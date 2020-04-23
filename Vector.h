@@ -2,22 +2,9 @@
 #define VECTOR_H
 
 template<typename T>
-class Vector {
+class Vector {              
     T* arr;
     int numberOfElements;
-    int capacity;
-
-    void resize() {
-        T* newArr = new T[2 * capacity];
-
-        for (int i = 0; i < numberOfElements; i++) {
-            newArr[i] = arr[i];
-        }
-        
-        capacity *= 2;
-        delete[] arr;
-        arr = newArr;
-    }
 
 public:
     bool hasElement(T element) const {
@@ -31,14 +18,12 @@ public:
 
     Vector() {
         numberOfElements = 0;
-        capacity = 8;
-        arr = new T[capacity];
+        arr = nullptr;
     }
 
     Vector(const Vector<T>& other) {
         numberOfElements = other.numberOfElements;
-        capacity = other.capacity;
-        arr = new T[capacity];
+        arr = new T[numberOfElements];
 
         for (int i = 0; i < numberOfElements; i++) {
             arr[i] = other.arr[i];
@@ -50,8 +35,7 @@ public:
             delete[] arr;
 
             numberOfElements = other.numberOfElements;
-            capacity = other.capacity;
-            arr = new T[capacity];
+            arr = new T[numberOfElements];
 
             for (int i = 0; i < numberOfElements; i++) {
                 arr[i] = other.arr[i];
@@ -65,10 +49,17 @@ public:
     }
 
     void addElement(T element) {
-        if (capacity == numberOfElements) {
-            resize();
+        T* newArr = new T[numberOfElements+1];
+
+        for(int i = 0; i < numberOfElements; i++){
+            newArr[i] = arr[i];
         }
-        arr[numberOfElements] = element;
+
+        newArr[numberOfElements] = element;         
+        
+        delete[] arr;
+        arr = newArr;
+
         numberOfElements++;
     }
 

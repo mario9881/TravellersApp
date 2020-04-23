@@ -18,8 +18,8 @@ class User{
     String email;
 
     Vector<Trip> trips;
-    Vector<User*> friends;
-    Vector<User*> invitations;
+    Vector<String> friends;
+    Vector<String> invitations;
 
 public:
     User(){
@@ -27,8 +27,8 @@ public:
         encodedPassword = "";
         email = "";
         trips = Vector<Trip>();
-        friends = Vector<User*>();
-        invitations = Vector<User*>();
+        friends = Vector<String>();
+        invitations = Vector<String>();
     }
 
     User(const String& _username, const String& password, const String& _email){
@@ -36,25 +36,25 @@ public:
         encodedPassword = encode(password);
         email = _email;
         trips = Vector<Trip>();
-        friends = Vector<User*>();
-        invitations = Vector<User*>();
+        friends = Vector<String>();
+        invitations = Vector<String>();
     }
 
     void addTrip(const Trip& trip){
         trips.addElement(trip);
     }
 
-    void receiveInvitationFrom(User* other) {
-        invitations.addElement(other);
+    void receiveInvitationFrom(String otherName) {
+        invitations.addElement(otherName);
     }
 
     void sendInvitationTo(User* other){
-        other->receiveInvitationFrom(this);
+        other->receiveInvitationFrom(this->username);
     }
 
-    void acceptInvitationFrom(User* other){
-        friends.addElement(other);
-        invitations.removeValue(other);
+    void acceptInvitationFrom(String otherName){
+        friends.addElement(otherName);
+        invitations.removeValue(otherName);
     }
 
     bool checkUserData(const String& usernameOrEmail, const String& password) const {
@@ -64,14 +64,24 @@ public:
         return false;        
     }
 
-    /*
-    String getusername() const{
+    String getUsername() const{
         return username;
     }
 
+    /*
     String getEmail() const{
         return email;
     }
     */
+
+    void printFriendsList() const{
+        for(int i = 0; i < friends.getNumberOfElements(); i++){
+            cout << friends[i] << endl;
+        }
+    }
+
+    void printProfileInfo() const{
+        
+    }
 };
 #endif

@@ -105,6 +105,8 @@ public:
             newString.pointer[thisSize + i] = other.pointer[i];
         }
         newString.pointer[newStringSize] = '\0';
+
+        return newString;
     }
 
     bool operator==(const String& other) const {
