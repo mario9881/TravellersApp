@@ -132,13 +132,19 @@ public:
         String destination;
         cin >> destination;
 
+        int numberOfGrades = 0;
+        int sum = 0;
+
         for(int i = 0; i < users.getNumberOfElements(); i++){
             const Trip* pointerToTrip = users[i].getTrip(destination);
             if(pointerToTrip != nullptr){
                 cout << "Username: " << users[i].getUsername() << "; "
                      << "Grade: " << pointerToTrip->getGrade() << endl;
+                numberOfGrades++;
+                sum  += pointerToTrip->getGrade();
             }
         }
+        cout << "Avarage grade: " << sum / numberOfGrades << endl;
     }
 
 
