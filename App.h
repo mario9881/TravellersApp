@@ -34,14 +34,48 @@ public:
         cout << "E-mail: ";
         cin >> email;
 
-        // TODO: Check if user exists
+        for(int i = 0; i < users.getNumberOfElements(); i++){
+            if(users[i].getUsername() == username || users[i].getEmail() == email){
+                cout << "Username or e-mail already taken" << endl;
+                return;
+            }
+        }
 
         User newUser(username, password, email);
         users.addElement(newUser);
     }
 
     void addTrip(){
+        String destination;
+        Date startDate;
+        Date endDate;
+        int grade;
+        String comment;
+        Vector<String> photos;
 
+        cout << "Destination: ";
+        cin >> destination;
+        cout << "Start date: ";
+        cin >> startDate;
+        cout << "End date: ";
+        cin >> endDate;
+        cout << "Grade: ";
+        cin >> grade;
+        cout << "Comment: ";
+        cin >> comment;
+
+        int numberOfPhotos;
+        cout << "Number of photos: ";
+        cin >> numberOfPhotos;
+
+        String photoName;
+        for(int i = 0 ; i < numberOfPhotos; i++){
+            cin >> photoName;
+            photos.addElement(photoName);
+        }      
+
+        Trip newTrip(destination, startDate, endDate, grade, comment, photos);
+        loggedUser->addTrip(newTrip);
     }
 
     void invite(){
@@ -95,7 +129,16 @@ public:
     }
 
     void checkDestination(){
+        String destination;
+        cin >> destination;
 
+        for(int i = 0; i < users.getNumberOfElements(); i++){
+            const Trip* pointerToTrip = users[i].getTrip(destination);
+            if(pointerToTrip != nullptr){
+                cout << "Username: " << users[i].getUsername() << "; "
+                     << "Grade: " << pointerToTrip->getGrade() << endl;
+            }
+        }
     }
 
 
