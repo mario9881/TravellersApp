@@ -64,15 +64,24 @@ public:
         return false;        
     }
 
+    const Trip* getTrip(const String& destination) const{
+        for(int i = 0; i < trips.getNumberOfElements(); i++){
+            if(trips[i].getDestination() == destination){
+                return &(trips[i]);
+            }
+        }
+        return nullptr;
+    }
+
     String getUsername() const{
         return username;
     }
 
-    /*
+    
     String getEmail() const{
         return email;
     }
-    */
+    
 
     void printFriendsList() const{
         for(int i = 0; i < friends.getNumberOfElements(); i++){
