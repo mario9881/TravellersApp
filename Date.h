@@ -1,33 +1,38 @@
 #ifndef DATE_H
 #define DATE_H
 #include"String.h"
+#include<fstream>
+using std::istream;
 
 class Date{
-    int day;
-    int month;
-    int year;
+    String isoDate;
 
 public:
     Date(){
-        day = 0;
-        month = 0; 
-        year = 0;
+        isoDate = "";
     }
 
-    Date(int _day, int _month, int _year){
-        day = _day;
-        month = _month;
-        year = _year;
+    Date(int day, int month, int year){
+        isoDate = String(year) + "-" + String(month) + "-" + String(day);
     }
 
     Date(String iso){
-        
+        isoDate = iso;
     }
 
     String toISO() const {
-        return String(year) + "-" + String(month) + "-" + String(day);
+        return isoDate;
     }
+
 };
+
+istream& operator>>(istream& in, Date& date){
+    String dateString;
+    in >> dateString;
+
+    date = Date(dateString);
+    return in;
+}
 
 #endif
 
