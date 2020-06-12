@@ -7,14 +7,9 @@
 using std::cout;
 using std::endl;
 
-// TODO: Really encode the password
-String encode(const String& password) {
-    return password;
-}
-
 class User{
     String username;
-    String encodedPassword;
+    String password;
     String email;
 
     Vector<Trip> trips;
@@ -24,16 +19,16 @@ class User{
 public:
     User(){
         username = "";
-        encodedPassword = "";
+        password = "";
         email = "";
         trips = Vector<Trip>();
         friends = Vector<String>();
         invitations = Vector<String>();
     }
 
-    User(const String& _username, const String& password, const String& _email){
+    User(const String& _username, const String& _password, const String& _email){
         username = _username;
-        encodedPassword = encode(password);
+        password = _password;
         email = _email;
         trips = Vector<Trip>();
         friends = Vector<String>();
@@ -57,9 +52,9 @@ public:
         invitations.removeValue(otherName);
     }
 
-    bool checkUserData(const String& usernameOrEmail, const String& password) const {
+    bool checkUserData(const String& usernameOrEmail, const String& _password) const {
         if(usernameOrEmail == username || usernameOrEmail == email){
-            return encode(password) == encodedPassword;
+            return password == _password;
         }
         return false;        
     }
@@ -73,6 +68,10 @@ public:
         return nullptr;
     }
 
+    Vector<Trip> getAllTrips() const{
+        return trips;
+    } 
+
     String getUsername() const{
         return username;
     }
@@ -81,7 +80,14 @@ public:
     String getEmail() const{
         return email;
     }
+
+    String getPassword() const{
+        return password;
+    }
     
+    void setPassword(const String& _password){
+        password = _password;
+    }
 
     void printFriendsList() const{
         for(int i = 0; i < friends.getNumberOfElements(); i++){
@@ -89,8 +95,11 @@ public:
         }
     }
 
-    void printProfileInfo() const{
-        
+    void printTrips() const{
+        for(int i = 0; i < trips.getNumberOfElements(); i++){
+            trips[i].printTripInfo();
+            cout << endl;
+        }
     }
 };
 #endif
