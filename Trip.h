@@ -46,8 +46,37 @@ public:
         return destination;
     }
 
+    Date getStartDate() const{
+        return startDate;
+    }
+
+    Date getEndDate() const{
+        return endDate;
+    } 
+
     int getGrade() const{
         return grade;
+    }
+
+    String getComment() const{
+        return comment;
+    }
+
+    Vector<String> getPhotos() const{
+        return photos;
+    }
+
+    void printTripInfo() const{
+        cout << "Destiantion: " << destination << endl 
+             << "Start date: " << startDate << endl
+             << "End date: " << endDate << endl
+             << "Grade: " << grade << endl
+             << "Comment: " << comment << endl
+             << "Photos: " << endl;
+
+        for(int i = 0; i < photos.getNumberOfElements(); i++){
+            cout << photos[i] << endl;
+        }
     }
 };
 
