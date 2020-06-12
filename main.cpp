@@ -8,6 +8,8 @@ int main(){
     bool weHaveEnteredExit = false;
     String command;
 
+    app.readFromFiles();
+
     while (!weHaveEnteredExit) {
         cin >> command;
         if (command == "create_account") {
@@ -37,13 +39,22 @@ int main(){
         else if (command == "check_destination") {
             app.checkDestination();
         }
+        else if (command == "list_all_destinations") {
+            app.listAllDestinations();
+        }
+        else if (command == "set_new_password") {
+            app.setNewPassword();
+        }
         else if (command == "exit") {
-            weHaveEnteredExit = true;
+            weHaveEnteredExit = true;        
         }
         else {
             cout << "Unknown command " << command << endl;
         }
         cout << endl;
     }
+
+    app.saveInFiles();
+
     return 0;
 }
