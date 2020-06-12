@@ -34,5 +34,10 @@ istream& operator>>(istream& in, Date& date){
     return in;
 }
 
+ostream& operator<<(ostream& out, const Date& date){
+    out << date.toISO();
+    return out;
+}
+
 #endif
 
