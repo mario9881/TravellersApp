@@ -124,6 +124,10 @@ public:
         return true;
     }
 
+    bool operator<(const String& other) const{
+        return strcmp(pointer, other.pointer) < 0;
+    }
+
     char operator[](int i) const {
         return pointer[i];
     }
@@ -178,34 +182,43 @@ bool isWhiteSpace(char symbol) {
 
 istream& operator>> (istream& in, String& s) {
     s = "";
-    while (isWhiteSpace(in.peek())) {   // Прескачаме всички интервали, нови редове и табулации ПРЕДИ стринга 
-        in.ignore();                    
-    }
+    // while (isWhiteSpace(in.peek())) {   // Прескачаме всички интервали, нови редове и табулации ПРЕДИ стринга 
+    //     in.ignore();                    
+    // }
 
-    char* helper = new char[8];
-    int helperLength = 0;
-    int capacity = 8;
+    // char* helper = new char[8];
+    // int helperLength = 0;
+    // int capacity = 8;
 
-    while (!isWhiteSpace(in.peek())) {  // Започнали сме да четем стринга. Продължаваме, докато (отново) не
-        char newSymbol;                 // видим интервал, нов ред или табулация
-        in >> newSymbol;
+    // while (!isWhiteSpace(in.peek())) {  // Започнали сме да четем стринга. Продължаваме, докато (отново) не
+    //     char newSymbol;                 // видим интервал, нов ред или табулация
+    //     in >> newSymbol;
         
-        if(helperLength == capacity - 1) {
-            char* newArr = new char[capacity * 2];
-            for(int k = 0; k < helperLength; k++) {
-                newArr[k] = helper[k];
-            }
-            delete[] helper;
-            helper = newArr;
-        }
-        helper[helperLength] = newSymbol;
-        helperLength++;
-    }
-    helper[helperLength] = '\0';
+    //     if(helperLength == capacity - 1) {
+    //         char* newArr = new char[capacity * 2];
+    //         for(int k = 0; k < helperLength; k++) {
+    //             newArr[k] = helper[k];
+    //         }
+    //         delete[] helper;
+    //         helper = newArr;
+    //     }
+    //     helper[helperLength] = newSymbol;
+    //     helperLength++;
+    // }
+    // helper[helperLength] = '\0';
+
+    char helper[200];
+    in >> helper;
 
     s = String(helper);
 
     return in;
+}
+
+void readTillEndOfLine(String& s, istream& in){
+    char arr[200];
+    in.getline(arr, 200);
+    s = String(arr);
 }
 
 #endif
